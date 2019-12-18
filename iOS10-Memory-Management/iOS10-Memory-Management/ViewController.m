@@ -65,6 +65,32 @@
 	
 	NSLog(@"Bob: %@", bob);
 	
+	
+	// Is the object autoreleased? Why?
+
+	NSString *name = [NSString stringWithFormat:@"%@ %@", @"John", @"Miller"];
+
+	NSDate *today = [NSDate date];
+
+	NSDate *now = [NSDate new];
+
+	NSDate *tomorrow2 = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
+
+	NSDate *nextTomorrow = [tomorrow2 copy]; // retain: 1
+
+	NSArray *words = [@"This sentence is the bomb" componentsSeparatedByString:@" "];
+
+	NSString *idea = [[NSString alloc] initWithString:@"Hello Ideas"];
+
+	Car *redCar = [Car car];
+
+	NSString *idea2 = [[[NSString alloc] initWithString:@"Hello Ideas"] autorelease];
+
+	NSString *idea3 = [[NSString alloc] initWithString:@"Hello Ideas"];
+	[idea3 autorelease];
+
+	
+	
 }	// end of scope, autoreleased objects that are not retained will get cleaned up after this point
 
 - (void)dealloc {
