@@ -7,10 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Car.h"
+
+@class Car;
 
 @interface Person : NSObject
 
-@property (nonatomic, retain) Car *car;
+@property (nonatomic, retain) Car *car; // person owns the car
+
+- (instancetype)initWithCar:(Car *)car;
 
 @end

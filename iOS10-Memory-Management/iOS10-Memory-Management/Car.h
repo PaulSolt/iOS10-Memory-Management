@@ -10,4 +10,6 @@
 
 @interface Car : NSObject
 
++ (instancetype)car; // autoreleased object
+
 @end

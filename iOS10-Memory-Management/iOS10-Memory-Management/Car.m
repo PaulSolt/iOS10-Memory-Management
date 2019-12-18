@@ -10,8 +10,7 @@
 
 @implementation Car
 
-- (instancetype)init
-{
+- (instancetype)init {
 	self = [super init];
 	if (self) {
 		NSLog(@"Car.init");
@@ -19,9 +18,16 @@
 	return self;
 }
 
++ (instancetype)car {
+	// Goal: Return an autoreleased object
+	return [[[Car alloc] init] autorelease];
+}
+
 - (void)dealloc {
-	[super dealloc];
 	NSLog(@"Car.dealloc");
+	
+	// Do all your cleanup before calling [super dealloc]
+	[super dealloc];
 }
 
 

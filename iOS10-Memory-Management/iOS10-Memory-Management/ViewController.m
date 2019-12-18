@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "Person.h"
+#import "Car.h"
 
 @interface ViewController ()
 
@@ -51,7 +53,19 @@
 	}
 	
 //	[self.names release]; // names: 0 (array is cleaned up)
-}
+	
+	NSDate *today = [NSDate date]; // autoreleased object
+	printf("%s\n", today.description.UTF8String);
+	
+	Car *honda = [Car car]; // autoreleased object
+	
+	NSLog(@"honda: %@", honda);
+	
+	Person *bob = [[[Person alloc] initWithCar:honda] autorelease];
+	
+	NSLog(@"Bob: %@", bob);
+	
+}	// end of scope, autoreleased objects that are not retained will get cleaned up after this point
 
 - (void)dealloc {
 	[_names release];
