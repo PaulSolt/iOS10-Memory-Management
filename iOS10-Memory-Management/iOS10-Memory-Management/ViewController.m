@@ -70,7 +70,7 @@
 
 	NSString *name = [NSString stringWithFormat:@"%@ %@", @"John", @"Miller"];
 
-	NSDate *today = [NSDate date];
+	NSDate *today1 = [NSDate date];
 
 	NSDate *now = [NSDate new];
 
