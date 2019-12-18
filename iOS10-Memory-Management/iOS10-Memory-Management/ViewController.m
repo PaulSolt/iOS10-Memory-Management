@@ -69,28 +69,53 @@
 	// Is the object autoreleased? Why?
 
 	NSString *name = [NSString stringWithFormat:@"%@ %@", @"John", @"Miller"];
-
+	// autoreleased
+	
 	NSDate *today1 = [NSDate date];
-
+	// autoreleased
+	
 	NSDate *now = [NSDate new];
-
+	// retained (not autoreleased)
+	
 	NSDate *tomorrow2 = [NSDate dateWithTimeIntervalSinceNow:60*60*24];
-
+	// autoreleased
+	
 	NSDate *nextTomorrow = [tomorrow2 copy]; // retain: 1
-
+	// not autoreleased
+	
 	NSArray *words = [@"This sentence is the bomb" componentsSeparatedByString:@" "];
-
+	// autoreleased
+	
 	NSString *idea = [[NSString alloc] initWithString:@"Hello Ideas"];
-
+	// not autoreleased
+	
 	Car *redCar = [Car car];
-
+	// autoreleased
+	
 	NSString *idea2 = [[[NSString alloc] initWithString:@"Hello Ideas"] autorelease];
-
+	// autoreleased
+	
 	NSString *idea3 = [[NSString alloc] initWithString:@"Hello Ideas"];
+	// not autoreleased
 	[idea3 autorelease];
+	// autoreleased
+	
+	
+//	[nextTomorrow release];
+//	NSLog(@"now: %@", now);
+//	[now release];
+	
+	Car *subaru = [[Car alloc] init];
+	Person *sue = [[Person alloc] initWithCar:subaru];
+	[subaru release]; // transfered ownership to the car
+	
+//	[sue release];	// bug if we release early and then try to use it (Use a sanitizer to check prevent these issues)
+	
+	sue.car = [[[Car alloc] init] autorelease];
+	NSLog(@"Sue: %@", sue.car);
+	
+	// [sue release]; // bug to not release memory before we leave this function
 
-	
-	
 }	// end of scope, autoreleased objects that are not retained will get cleaned up after this point
 
 - (void)dealloc {
