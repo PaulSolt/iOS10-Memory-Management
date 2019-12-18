@@ -38,16 +38,27 @@
 	NSArray *inputArray = @[@"Paul", @"Isaac", @"John", @"Jesse"];
 
 	// Manual Reference Counting = MRC = ownership
-	NSMutableArray *names = [[NSMutableArray alloc] init]; // names: 1
+	_names = [[NSMutableArray alloc] init]; // names: 1
+	// NOTE: self.name = ...;  will do a retain to establish ownership if we use the (retain) property attribute
+	// typically you'd want to set the variable to the instance variable in an initializer, so you don't get a double
+	// retain count
 
 	for (int i = 0; i < inputArray.count; i++) {
 		NSString *name = [[NSString alloc] initWithFormat:@"%@", inputArray[i]]; // name: 1
 		
-		[names addObject:name]; // name: 2
+		[self.names addObject:name]; // name: 2
 		[name release];
 	}
 	
-	[names release]; // names: 0 (array is cleaned up)
+//	[self.names release]; // names: 0 (array is cleaned up)
+}
+
+- (void)dealloc {
+	[_names release];
+	_names = nil;
+	
+	
+	[super dealloc]; // last statement to cleanup NSObject or subclass
 }
 
 
